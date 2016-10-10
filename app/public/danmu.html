@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>头盔TV弹幕查看工具</title>
+  <style>
+    #comments {
+      list-style: none;
+      padding: 0;
+      margin: 10px;
+    }
+
+    #comments li {
+      margin-bottom: 5px;
+      color: #1F2D3D;
+      font-size: 17px;
+      overflow: hidden;
+    }
+
+    .comment-nickname {
+      color: #20A0FF;
+    }
+
+    #status {
+      display: block;
+      position: fixed;
+      bottom: 5px;
+      right: 5px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div id="danmu">
+    <ul id="comments">
+      <li v-for="comment in comments"><span class="comment-nickname">{{comment.user.nickname}}</span>: {{comment.content}}</li>
+    </ul>
+    <span id="status" v-if="connected">已连接</span>
+  </div>
+
+  <script src="/public/vue.min.js" type="application/javascript"></script>
+  <script>
+    (function() {
+      var vm = new Vue({
+        el: '#danmu',
+
+        data: {
+          comments: [],
+          connected: false
+        },
+
+        mounted: function() {
+          var query = {}
+          location.search.substr(1)
+            .split('&')
+            .map(function(s) { return s.split('=') })
+            .forEach(function(pair) {
+              query[pair[0]] = pair[1]
+            })
+
+          var roomId = query.id
+
+          var socket = new WebSocket(`ws://${location.host}/api/v1/comments`)
+          socket.onopen = function() {
+            socket.send(JSON.stringify({
+              type: 0, // Handshake
+              room: roomId
+            }))
+            vm.connected = true
+          }
+          socket.onmessage = function(evt) {
+            var data = JSON.parse(evt.data)
+            var nickname = data.user.nickname
+            var content = data.content
+
+            vm.handleComment(nickname, content)
+          }
+        },
+
+        methods: {
+          handleComment: function(nickname, content) {
+            // Push comment into the list
+            this.comments.push({
+              user: { nickname: nickname },
+              content: content
+            })
+          }
+        }
+      })
+    })()
+  </script>
+</body>
+</html>
