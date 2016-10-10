@@ -25,7 +25,7 @@ module.exports = appInfo => {
   }
 
   exports.streams = {
-    apiUrl: 'http://localhost:1985/api/v1',
+    apiUrl: 'http://shieldtv.lifemap.in:1985/api/v1',
     serverUrl: 'http://shieldtv.lifemap.in:8081'
   }
 
@@ -36,10 +36,10 @@ module.exports = appInfo => {
 
   exports.keys = [ 'shield-tv', 'broadcast', 'streaming' ].join()
 
-  exports.mongo = 'mongodb://localhost:32769/shield-tv'
+  exports.mongo = 'mongodb://shieldtv.lifemap.in:32769/shield-tv'
   exports.redis = {
     port: 6379,          // Redis port
-    host: '127.0.0.1',   // Redis host
+    host: 'shieldtv.lifemap.in',   // Redis host
     family: 4,           // 4 (IPv4) or 6 (IPv6)
     password: 'shieldtv',
     db: 0
