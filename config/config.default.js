@@ -25,8 +25,8 @@ module.exports = appInfo => {
   }
 
   exports.streams = {
-    apiUrl: 'http://shieldtv.lifemap.in:1985/api/v1',
-    serverUrl: 'http://shieldtv.lifemap.in:8081'
+    apiUrl: 'http://shieldt.vc:1985/api/v1',
+    serverUrl: 'http://shieldt.vc:8081'
   }
 
   exports.defaultBroadcastRoom = {
@@ -36,17 +36,17 @@ module.exports = appInfo => {
 
   exports.keys = [ 'shield-tv', 'broadcast', 'streaming' ].join()
 
-  exports.mongo = 'mongodb://shieldtv.lifemap.in:32769/shield-tv'
+  exports.mongo = 'mongodb://shieldt.vc:32769/shield-tv'
   exports.redis = {
     port: 6379,          // Redis port
-    host: 'shieldtv.lifemap.in',   // Redis host
+    host: 'shieldt.vc',   // Redis host
     family: 4,           // 4 (IPv4) or 6 (IPv6)
     password: 'shieldtv',
     db: 0
   }
   exports.streamKeySecret = 'shield-tv-room'
   exports.passwordSecret = 'shield-tv'
-  exports.url = 'http://shieldtv.lifemap.in'
+  exports.url = 'http://shieldt.vc'
   exports.defaultAvatar = `${exports.url}/public/images/default_avatar.png`
 
   return exports
