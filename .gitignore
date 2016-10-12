@@ -3,6 +3,7 @@ npm-debug.log
 node_modules/
 app/public/src/
 app/public/dist/
+app/public/images/
 coverage/
 .idea/
 run/
